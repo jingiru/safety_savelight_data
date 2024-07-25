@@ -6,8 +6,12 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 import random
 
-# 한글 폰트 설정
-plt.rc('font', family='NanumGothic')
+# NanumGothic 폰트 파일 경로 설정
+font_path = 'NanumGothic.ttf'
+
+# 폰트 설정
+fontprop = fm.FontProperties(fname=font_path)
+plt.rc('font', family=fontprop.get_name())
 
 # 엑셀 파일 로드
 file_path = './safety_savelight_data.xlsx'
