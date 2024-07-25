@@ -78,6 +78,7 @@ st.markdown(
         border-radius: 15px;
         display: inline-block;
         width: 200px;
+        margin-bottom: 20px;
     }
     .signal-green {
         color: #2ecc71;
