@@ -215,7 +215,7 @@ def show_signal_and_image(signal_class, message, image_file):
     # 신호등과 이미지 함께 표시
     st.markdown(f"""
     <div class='signal-container'>
-        <div style="margin-bottom: 5px; margin-top: -35px;">
+        <div style="margin-bottom: 5px; margin-top: -25px;">
             <img src="data:image/png;base64,{get_image_base64(image_file)}" alt="{message}" style="width: 430px;">
         </div>
         <div class='signal {signal_class}'>● {message}</div>
