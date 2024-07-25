@@ -152,8 +152,9 @@ st.markdown(
 # 날짜 범위 설정
 min_date = datetime(2024, 3, 4)
 max_date = datetime(2025, 2, 28)
-
-date_input = st.date_input("날짜를 선택하세요. 2024학년도의 날짜(2024.03.04 ~ 2025.02.28.)만 선택 가능합니다.", datetime.now(), min_value=min_date, max_value=max_date)
+ 
+st.subheader(":date:")
+date_input = st.date_input("날짜를 선택하세요. 2024학년도의 날짜(2024.03.04~2025.02.28.)만 선택 가능", datetime.now(), min_value=min_date, max_value=max_date)
 
 # 선택된 날짜와 주차 정보 확인
 current_date = pd.to_datetime(date_input)
@@ -299,7 +300,7 @@ if current_week_number:
 
 
         # 서브타이틀 추가 및 그래프 표시
-        st.markdown(f"""<hr>""", unsafe_allow_html=True)
+        st.divider()
         st.markdown(f"<div class='subtitle'>{current_week_number} 각 학년도 사고 건수</div>", unsafe_allow_html=True)
         st.pyplot(fig)
 
