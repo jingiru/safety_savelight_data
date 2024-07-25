@@ -38,7 +38,7 @@ st.markdown(
     .subtitle {
         text-align: center;
         color: #000000;
-        font-size: 20px;
+        font-size: 24px;
         font-weight: bold;
         margin-bottom: 10px;
     }
@@ -209,12 +209,12 @@ if current_week_number:
 
         ax.set_xlabel('학년도', fontsize=14, fontproperties=fontprop)
         ax.set_ylabel('사고 건수', fontsize=14, fontproperties=fontprop)
+
+        # 서브타이틀 추가
+        st.markdown(f"<div class='subtitle'>{current_week_number} 각 학년도 사고 건수</div>", unsafe_allow_html=True)
+
         st.pyplot(fig)
-
-
-         # 서브타이틀 추가
-        st.markdown(f"<div class='subtitle'>{current_week_number} 각 학년도 사고 건수</div>")
-
+        
         # 2024학년도 예측 결과 및 신호등 색상 표시
         st.markdown(f"<div class='prediction'>2024학년도 {current_week_number}의 예측 학교 안전 사고 발생 확률은 {probability_percentage:.2f}%입니다.</div>", unsafe_allow_html=True)
         st.markdown(f"<div class='signal-container'><div class='signal {signal_class}'>● {message}</div></div>", unsafe_allow_html=True)
