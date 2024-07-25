@@ -13,7 +13,6 @@ font_path = os.path.join(os.getcwd(), 'NanumGothic.TTF')
 
 # 폰트 설정
 fontprop = fm.FontProperties(fname=font_path)
-plt.rcParams['axes.titlesize'] = 20  # 제목 폰트 크기 설정
 
 
 # 엑셀 파일 로드
@@ -194,7 +193,7 @@ if current_week_number:
             message = '위험'
 
         # 시각화
-        fig, ax = plt.subplots(figsize=(12, 5))
+        fig, ax = plt.subplots(figsize=(12, 6))
 
         # x축 레이블에 폰트 적용
         ax.set_xticks(range(len(years)))
@@ -210,7 +209,7 @@ if current_week_number:
 
         ax.set_xlabel('학년도', fontsize=14, fontproperties=fontprop)
         ax.set_ylabel('사고 건수', fontsize=14, fontproperties=fontprop)
-        ax.set_title(f'{current_week_number} 각 학년도 사고 건수', fontsize=25, fontproperties=fontprop)
+        ax.set_title(f'{current_week_number} 각 학년도 사고 건수', fontsize=10, fontproperties=fontprop)
         st.pyplot(fig)
 
         # 2024학년도 예측 결과 및 신호등 색상 표시
