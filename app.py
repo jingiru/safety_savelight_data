@@ -195,7 +195,7 @@ if current_week_number:
 
         # 시각화
         fig, ax = plt.subplots(figsize=(12, 6))
-        ax.bar(years, current_week_data, color='skyblue', edgecolor='black')
+        ax.bar(years, current_week_data, color='skyblue', edgecolor='black', fontproperties=fontprop)
 
         # 포인트 위에 정수 값 레이블 달기
         for i, val in enumerate(current_week_data):
@@ -204,7 +204,7 @@ if current_week_number:
 
         ax.set_xlabel('학년도', fontsize=14, fontproperties=fontprop)
         ax.set_ylabel('사고 건수', fontsize=14, fontproperties=fontprop)
-        ax.set_title(f'{current_week_number} 각 학년도 사고 건수', fontsize=16, fontproperties=fontprop)
+        ax.set_title(f'{current_week_number} 각 학년도 사고 건수', fontsize=20, fontproperties=fontprop)
         st.pyplot(fig)
 
         # 2024학년도 예측 결과 및 신호등 색상 표시
