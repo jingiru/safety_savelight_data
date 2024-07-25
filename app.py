@@ -31,7 +31,7 @@ st.markdown(
         text-align: center;
         margin-top: 20px;
         padding: 20px;
-        background: linear-gradient(135deg, #6a1b9a, #ab47bc);
+        background: linear-gradient(#e66353, #f6b26b, #a9ba5a);
         color: white;
         border-radius: 15px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -50,7 +50,7 @@ st.markdown(
         text-align: center;
         font-size: 18px;
         margin-top: 10px;
-        color: #ffffff;
+        color: #000000;
     }
     .prediction {
         text-align: center;
