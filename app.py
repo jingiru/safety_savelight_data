@@ -8,8 +8,8 @@ import numpy as np
 from sklearn.linear_model import LinearRegression
 from PIL import Image
 from io import BytesIO
-import os
 import base64
+import os
 
 # NanumGothic 폰트 파일 경로 설정
 font_path = os.path.join(os.getcwd(), 'NanumGothic.TTF')
@@ -46,6 +46,7 @@ st.markdown(
         color: #2c3e50;
     }
     .subtitle {
+        text-align: center;
         font-size: 24px;
         font-weight: 500;
         margin-top: 5px;
@@ -65,7 +66,7 @@ st.markdown(
     }
     .signal-container {
         display: flex;
-        justify-content: center;
+        flex-direction: column;
         align-items: center;
         margin-top: 20px;
     }
@@ -77,7 +78,7 @@ st.markdown(
         border-radius: 10px;
         display: inline-block;
         width: 200px;
-        margin: 0 10px;
+        margin-top: 10px;
     }
     .signal-green {
         color: #2ecc71;
@@ -91,34 +92,58 @@ st.markdown(
         color: #e74c3c;
         background-color: #ffebee;
     }
+    .quote-container {
+    text-align: center;
+    margin-top: 20px;
+    padding: 1px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    }
+
     .quote {
         text-align: center;
-        font-size: 22px;
-        margin-top: 20px;
+        font-size: 16px;
+        margin: 0; /* 상자 안쪽 여백 제거 */
         font-weight: bold;
-        padding: 15px;
-        border-radius: 10px;
         color: #333;
         background-color: #f9f9f9;
-        border: 1px solid #ddd;
     }
+
     .quote::before {
         content: '“';
         font-size: 30px;
         color: #aaa;
         vertical-align: middle;
     }
+
     .quote::after {
         content: '”';
         font-size: 30px;
         color: #aaa;
         vertical-align: middle;
     }
+
+    .quote-author {
+        font-size: 14px;
+        font-style: italic;
+        color: #555;
+        margin-top: -10px;
+        margin-bottom: 5px;
+    }
+    hr {
+        margin: 30px 0;
+        border: 0;
+        border-top: 2px solid #ddd;
+        width: 100%;
+        align-self: center;
+    }
     </style>
     <div class="title-container">
-        <div class="title">학교 안전 사고 예측 서비스</div>
-        <div class="subtitle">웹 안전 수호등</div>
+        <div class="title">웹 안전 수호등</div>
+        <div class="subtitle">학교 안전 사고 예측 서비스</div>
     </div>
+    <hr>
     <div class="description">기본적으로 오늘 날짜로 되어 있습니다.<br>필요한 경우, 원하는 날짜를 선택하세요.</div>
     """,
     unsafe_allow_html=True
@@ -141,52 +166,65 @@ else:
 years = ['2019학년도', '2020학년도', '2021학년도', '2022학년도', '2023학년도']
 norm_years = ['2019정규', '2020정규', '2021정규', '2022정규', '2023정규']
 
-# 안전, 주의, 위험별 명언 목록
-safety_quotes = [
-    "안전은 모든 일의 시작이다.", "사고는 예방할 수 있다.", "안전은 습관이 되어야 한다.", 
-    "위험을 예방하는 것이 가장 좋은 치료다.", "안전은 최우선이다.", "주위의 안전을 지키자.", 
-    "안전은 모든 일의 기초이다.", "작은 조치가 큰 변화를 만든다.", "안전은 우리가 스스로 만들어 가는 것이다.", 
-    "안전은 모든 것이 정상일 때도 기억해야 한다."
-]
-caution_quotes = [
-    "주의는 위험을 감소시킨다.", "주의는 예방의 첫 걸음이다.", "자신과 타인을 보호하는 것이 주의이다.", 
-    "주의 깊은 관찰이 사고를 막는다.", "작은 주의가 큰 문제를 예방한다.", "주의는 성과의 밑거름이다.", 
-    "주의를 기울여 사고를 방지하자.", "경계는 항상 필요하다.", "주의는 절대 과잉이 아니다.", 
-    "위험 요소를 발견하고 대처하자."
-]
-danger_quotes = [
-    "위험은 준비가 부족할 때 발생한다.", "위험을 감지하고 대처하는 것이 중요하다.", 
-    "위험은 즉시 조치를 취해야 한다.", "위험을 간과하면 큰 피해를 입을 수 있다.", 
-    "위험한 상황에서는 냉정함이 필요하다.", "위험은 미리 예측하고 준비해야 한다.", 
-    "위험에 대한 경각심을 갖자.", "위험은 항상 대비가 필요하다.", 
-    "위험을 무시하면 큰 문제가 생길 수 있다.", "위험에 대해 항상 경각심을 갖자."
+# 통합 명언 목록
+all_quotes = [
+    ("위험은 자신이 무엇을 하는지 모르는데서 온다", "워렌 버핏"),
+    ("위험을 피하려면 항상 최악의 상태를 대비해두어야 한다", "그라시야"),
+    ("미리 예견한 위험은 반쯤 피한 것이나 다름없다", "토마스 풀러"),
+    ("오직 하나만 생각할 때, 그것보다 위험한 것은 없다", "알랭"),
+    ("당신이 단 한 가지의 생각을 가지고 있을 때가 가장 위험하다", "에밀 사르티에"),
+    ("안전은 자연스럽게 일어나는 것이 아니라 노력을 기울여 만들어진 것이다", "마크 트웨인"),
+    ("안전은 발명이 아닌 태도이다", "스페인 속담"),
+    ("안전은 성공의 열쇠이다", "폴 마르네프"),
+    ("안전은 모든 자유 중 가장 중요한 것이다", "피델 카스트로"),
+    ("안전은 운의 문제가 아니라 예방의 문제다", "포르투갈 속담"),
+    ("안전은 성고을 위한 열쇠입니다", "지그 지글러"),
+    ("안전은 세심한 주의의 결과이다", "헤로도트"),
+    ("안전은 지식, 사고, 의지에서 발생해야 하는 것입니다", "루크레티오스 스루스러"),
+    ("안전은 항상 당신의 손에 있습니다", "시세로"),
+    ("위험은 사람들이 최선의 일을 하도록 만드는 조건이다", "존 A. 록펠러"),
+    ("안전은 사람들이 하루 일을 마칠 수 있을 만큼만 충분히 많이 아는 것이다", "노맨 애글"),
+    ("안전은 우리가 지키지 않으면 안 되는 유일한 것이다", "더글러스 아덤스"),
+    ("안전은 모두를 위한 것이고, 위험은 아무도 위한 것이 아니다", "미건 애리스토틀"),
+    ("안전을 위해 생각하고 일하기, 그게 진정한 승리다", "나폴레옹 보나파르트"),
+    ("안전은 효율적인 일의 일부이다. 그것은 동시에 삶의 일부이다", "헨리 포드"),
+    ("생명을 지키기 위한 일은 언제나 허용되는 일이다", "토마스 제퍼슨"),
+    ("위험을 회피하기 위해 어떤 시도도 하지 말라는 의미는 아니다. 위험을 효과적으로 관리해야 한다는 것이다", "레이닌 스톤"),
+    ("잠재적 위험을 식별하고 관리하지 않으면, 그 위험은 당신에게서 자신의 권한을 빼앗아 갈 수 있다", "스티븐 스타크"),
+    ("위험은 피할 수 있는 것도 있지만, 감수할 수 없는 것도 있다", "톰 클랜시"),
+    ("안전은 우리가 지킬 수 있는 유일한 것이다", "아인슈타인"),
+    ("안전은 우리가 무엇이든 할 수 있는 유일한 투자다", "존 F. 케네디")
 ]
 
-def get_random_quote(signal):
-    if signal == 'signal-green':
-        return random.choice(safety_quotes)
-    elif signal == 'signal-orange':
-        return random.choice(caution_quotes)
-    elif signal == 'signal-red':
-        return random.choice(danger_quotes)
-    return ""
+
+# 명언과 저자 이름을 표시하는 함수
+def show_quote_with_author(quote, author):
+    st.markdown(f"""
+    <div class="quote-container">
+        <div class="quote">
+            {quote}
+        </div>
+        <div class="quote-author">- {author}</div>
+    </div>
+    """, unsafe_allow_html=True)
+def get_random_quote():
+    quote, author = random.choice(all_quotes)
+    return quote, author
 
 def show_signal_and_image(signal_class, message, image_file):
     # 신호등과 이미지 함께 표시
     st.markdown(f"""
     <div class='signal-container'>
-        <div class='signal {signal_class}'>● {message}</div>
-        <div style="margin-left: 20px;">
-            <img src="data:image/png;base64,{get_image_base64(image_file)}" alt="{message}" style="width: 500px; height: 250px;">
+        <div style="margin-bottom: 10px;">
+            <img src="data:image/png;base64,{get_image_base64(image_file)}" alt="{message}" style="width: 550px; height: 300px;">
         </div>
+        <div class='signal {signal_class}'>● {message}</div>
     </div>
     """, unsafe_allow_html=True)
 
 def get_image_base64(image_file):
     with open(image_file, "rb") as img_file:
         buffered = BytesIO(img_file.read())
-        img = Image.open(buffered)
-        buffered.seek(0)
         base64_str = base64.b64encode(buffered.getvalue()).decode()
     return base64_str
 
@@ -228,7 +266,7 @@ if current_week_number:
             image_file = 'red.png'
 
         # 시각화
-        fig, ax = plt.subplots(figsize=(12, 6))
+        fig, ax = plt.subplots(figsize=(12, 5))
 
         # x축 레이블에 폰트 적용
         ax.set_xticks(range(len(years)))
@@ -251,16 +289,15 @@ if current_week_number:
         # 신호등과 이미지 표시
         show_signal_and_image(signal_class, message, image_file)
 
-        # 랜덤 명언 표시
-        quote = get_random_quote(signal_class)
-        st.markdown(f"<div class='quote'>{quote}</div>", unsafe_allow_html=True)
+        # 랜덤 명언과 저자 이름 추출
+        quote, author = get_random_quote()
+        show_quote_with_author(quote, author)
 
 
-        # 서브타이틀 추가
+        # 서브타이틀 추가 및 그래프 표시
+        st.markdown(f"""<hr>""", unsafe_allow_html=True)
         st.markdown(f"<div class='subtitle'>{current_week_number} 각 학년도 사고 건수</div>", unsafe_allow_html=True)
-
         st.pyplot(fig)
-
 
     else:
         st.error("해당 주차에 대한 데이터가 없습니다.")
