@@ -1,11 +1,11 @@
 import streamlit as st
+from datetime import datetime
 import pandas as pd
-import numpy as np
-from sklearn.linear_model import LinearRegression
+import random
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
-from datetime import datetime
-import random
+import numpy as np
+from sklearn.linear_model import LinearRegression
 import os
 
 # NanumGothic 폰트 파일 경로 설정
@@ -13,7 +13,6 @@ font_path = os.path.join(os.getcwd(), 'NanumGothic.TTF')
 
 # 폰트 설정
 fontprop = fm.FontProperties(fname=font_path)
-
 
 # 엑셀 파일 로드
 file_path = './safety_savelight_data.xlsx'
@@ -28,25 +27,30 @@ source_data['종료 일자'] = pd.to_datetime(source_data['종료 일자'])
 st.markdown(
     """
     <style>
-    .title {
+    .title-container {
         text-align: center;
-        color: #4CAF50;
-        font-size: 36px;
-        font-weight: bold;
         margin-top: 20px;
+        padding: 20px;
+        background: linear-gradient(135deg, #6a1b9a, #ab47bc);
+        color: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .title {
+        font-size: 48px;
+        font-weight: bold;
+        margin: 0;
     }
     .subtitle {
-        text-align: center;
-        color: #000000;
-        font-size: 24px;
+        font-size: 28px;
         font-weight: bold;
-        margin-bottom: 10px;
+        margin-top: 10px;
     }
     .description {
         text-align: center;
         font-size: 18px;
-        margin-bottom: 20px;
-        color: #333;
+        margin-top: 10px;
+        color: #ffffff;
     }
     .prediction {
         text-align: center;
@@ -104,8 +108,10 @@ st.markdown(
         vertical-align: middle;
     }
     </style>
-    <div class="title">학교 안전 사고 예측 서비스</div>
-    <div class="subtitle">웹 안전 수호등</div>
+    <div class="title-container">
+        <div class="title">학교 안전 사고 예측 서비스</div>
+        <div class="subtitle">웹 안전 수호등</div>
+    </div>
     <div class="description">기본적으로 오늘 날짜로 되어 있습니다.<br>필요한 경우, 원하는 날짜를 선택하세요.</div>
     """,
     unsafe_allow_html=True
