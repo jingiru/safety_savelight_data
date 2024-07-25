@@ -194,7 +194,7 @@ if current_week_number:
             message = '위험'
 
         # 시각화
-        fig, ax = plt.subplots(figsize=(12, 6))
+        fig, ax = plt.subplots(figsize=(10, 6))
 
         # x축 레이블에 폰트 적용
         ax.set_xticks(range(len(years)))
