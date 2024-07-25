@@ -28,18 +28,7 @@ st.markdown(
     """
     <style>
 
-    @import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap');
-    .text-box h1 {
-        font-family: 'Staatliches', cursive;
-    }
-    .text-box h4 {
-        font-family: 'Montserrat', sans-serif;
-    }
-
-
     .title-container {
-        font-family: 'Staatliches', cursive;
         font-size: 6em;
         text-align: center;
         color: #F1C164;
