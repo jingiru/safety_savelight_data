@@ -6,13 +6,14 @@ import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
 from datetime import datetime
 import random
+import os
 
 # NanumGothic 폰트 파일 경로 설정
-font_path = 'NanumGothic.TTF'
+font_path = os.path.join(os.getcwd(), 'NanumGothic.TTF')
 
 # 폰트 설정
 fontprop = fm.FontProperties(fname=font_path)
-plt.rc('font', family=fontprop.get_name())
+# plt.rc('font', family=fontprop.get_name())
 
 
 # 엑셀 파일 로드
