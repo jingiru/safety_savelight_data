@@ -10,7 +10,8 @@ import random
 # NanumGothic 폰트 파일 경로 설정
 font_path = 'NanumGothic.TTF'
 
-# 폰트 설정
+# NanumGothic 폰트 설정
+font_path = '/usr/share/fonts/truetype/nanum/NanumGothic.ttf'  # 폰트 파일 경로
 fontprop = fm.FontProperties(fname=font_path)
 plt.rc('font', family=fontprop.get_name())
 
