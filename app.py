@@ -6,7 +6,10 @@ import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
 import numpy as np
 from sklearn.linear_model import LinearRegression
+from PIL import Image
+from io import BytesIO
 import os
+import base64
 
 # NanumGothic 폰트 파일 경로 설정
 font_path = os.path.join(os.getcwd(), 'NanumGothic.TTF')
@@ -168,6 +171,25 @@ def get_random_quote(signal):
         return random.choice(danger_quotes)
     return ""
 
+def show_signal_and_image(signal_class, message, image_file):
+    # 신호등과 이미지 함께 표시
+    st.markdown(f"""
+    <div class='signal-container'>
+        <div class='signal {signal_class}'>● {message}</div>
+        <div style="margin-left: 20px;">
+            <img src="data:image/png;base64,{get_image_base64(image_file)}" alt="{message}" style="width: 500px; height: 250px;">
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+def get_image_base64(image_file):
+    with open(image_file, "rb") as img_file:
+        buffered = BytesIO(img_file.read())
+        img = Image.open(buffered)
+        buffered.seek(0)
+        base64_str = base64.b64encode(buffered.getvalue()).decode()
+    return base64_str
+
 if current_week_number:
     current_week_data = info_data[info_data['학사일정 주차'] == current_week_number][years].values.flatten()
     current_week_norm_data = info_data[info_data['학사일정 주차'] == current_week_number][norm_years].values.flatten()
@@ -195,15 +217,15 @@ if current_week_number:
         if probability < 0.3:
             signal_class = 'signal-green'
             message = '안전'
-            image_path = 'green.png'
+            image_file = 'green.png'
         elif probability < 0.7:
             signal_class = 'signal-orange'
             message = '주의'
-            image_path = 'yellow.png'
+            image_file = 'yellow.png'
         else:
             signal_class = 'signal-red'
             message = '위험'
-            image_path = 'red.png'
+            image_file = 'red.png'
 
         # 시각화
         fig, ax = plt.subplots(figsize=(12, 6))
@@ -222,26 +244,23 @@ if current_week_number:
 
         ax.set_xlabel('학년도', fontsize=14, fontproperties=fontprop)
         ax.set_ylabel('사고 건수', fontsize=14, fontproperties=fontprop)
-
-        # 서브타이틀 추가
-        st.markdown(f"<div class='subtitle'>{current_week_number} 각 학년도 사고 건수</div>", unsafe_allow_html=True)
-
-        st.pyplot(fig)
         
         # 2024학년도 예측 결과 및 신호등 색상 표시
         st.markdown(f"<div class='prediction'>2024학년도 {current_week_number}의 예측 학교 안전 사고 발생 확률은 {probability_percentage:.2f}%입니다.</div>", unsafe_allow_html=True)
         
         # 신호등과 이미지 표시
-        st.markdown(f"""
-        <div class='signal-container'>
-            <div class='signal {signal_class}'>● {message}</div>
-            <img src="data:image/png;base64,{st.image(image_path, use_column_width=True, output_format='png')}" alt="{message}" style="width: 60px; height: 60px; margin-left: 20px;">
-        </div>
-        """, unsafe_allow_html=True)
+        show_signal_and_image(signal_class, message, image_file)
 
         # 랜덤 명언 표시
         quote = get_random_quote(signal_class)
         st.markdown(f"<div class='quote'>{quote}</div>", unsafe_allow_html=True)
+
+
+        # 서브타이틀 추가
+        st.markdown(f"<div class='subtitle'>{current_week_number} 각 학년도 사고 건수</div>", unsafe_allow_html=True)
+
+        st.pyplot(fig)
+
 
     else:
         st.error("해당 주차에 대한 데이터가 없습니다.")
