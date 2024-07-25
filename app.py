@@ -72,13 +72,12 @@ st.markdown(
     }
     .signal {
         text-align: center;
-        font-size: 32px;
+        font-size: 25px;
         font-weight: bold;
-        padding: 15px;
-        border-radius: 10px;
+        padding: 10px;
+        border-radius: 15px;
         display: inline-block;
         width: 200px;
-        margin-top: 10px;
     }
     .signal-green {
         color: #2ecc71;
@@ -144,7 +143,7 @@ st.markdown(
         <div class="subtitle">학교 안전 사고 예측 서비스</div>
     </div>
     <hr>
-    <div class="description">기본적으로 오늘 날짜로 되어 있습니다.<br>필요한 경우, 원하는 날짜를 선택하세요.</div>
+    <div class="description">기본적으로 오늘 날짜입니다.<br>필요한 경우, 원하는 날짜를 선택하세요.</div>
     """,
     unsafe_allow_html=True
 )
@@ -167,7 +166,7 @@ years = ['2019학년도', '2020학년도', '2021학년도', '2022학년도', '20
 norm_years = ['2019정규', '2020정규', '2021정규', '2022정규', '2023정규']
 
 # 통합 명언 목록
-all_quotes = [
+quotes = [
     ("위험은 자신이 무엇을 하는지 모르는데서 온다", "워렌 버핏"),
     ("위험을 피하려면 항상 최악의 상태를 대비해두어야 한다", "그라시야"),
     ("미리 예견한 위험은 반쯤 피한 것이나 다름없다", "토마스 풀러"),
@@ -208,15 +207,15 @@ def show_quote_with_author(quote, author):
     </div>
     """, unsafe_allow_html=True)
 def get_random_quote():
-    quote, author = random.choice(all_quotes)
+    quote, author = random.choice(quotes)
     return quote, author
 
 def show_signal_and_image(signal_class, message, image_file):
     # 신호등과 이미지 함께 표시
     st.markdown(f"""
     <div class='signal-container'>
-        <div style="margin-bottom: 10px;">
-            <img src="data:image/png;base64,{get_image_base64(image_file)}" alt="{message}" style="width: 550px; height: 300px;">
+        <div style="margin-bottom: 5px; margin-top: -30px;">
+            <img src="data:image/png;base64,{get_image_base64(image_file)}" alt="{message}" style="width: 430px;">
         </div>
         <div class='signal {signal_class}'>● {message}</div>
     </div>
@@ -266,7 +265,7 @@ if current_week_number:
             image_file = 'red.png'
 
         # 시각화
-        fig, ax = plt.subplots(figsize=(12, 5))
+        fig, ax = plt.subplots(figsize=(12, 6))
 
         # x축 레이블에 폰트 적용
         ax.set_xticks(range(len(years)))
