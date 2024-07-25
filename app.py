@@ -210,7 +210,7 @@ if current_week_number:
 
         ax.set_xlabel('학년도', fontsize=14, fontproperties=fontprop)
         ax.set_ylabel('사고 건수', fontsize=14, fontproperties=fontprop)
-        ax.set_title(f'{current_week_number} 각 학년도 사고 건수', fontsize=16, fontproperties=fontprop)
+        ax.set_title(f'{current_week_number} 각 학년도 사고 건수', fontsize=25, fontproperties=fontprop)
         st.pyplot(fig)
 
         # 2024학년도 예측 결과 및 신호등 색상 표시
