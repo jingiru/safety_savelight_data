@@ -140,7 +140,7 @@ st.markdown(
     </style>
     <div class="title-container">
         <div class="title">웹 안전 수호등</div>
-        <div class="subtitle">학교 안전 사고 예측 서비스</div>
+        <div class="subtitle">2024학년도 학교 안전 사고 예측 서비스</div>
     </div>
     <hr>
     <div class="description">기본적으로 오늘 날짜입니다.<br>필요한 경우, 원하는 날짜를 선택하세요.</div>
@@ -156,7 +156,7 @@ current_date = pd.to_datetime(date_input)
 week_info = source_data[(source_data['시작 일자'] <= current_date) & (source_data['종료 일자'] >= current_date)]
 if not week_info.empty:
     current_week_number = week_info.iloc[0]['주차']
-    st.success(f"선택한 날짜 ({current_date.date()})는 {current_week_number}입니다.")
+    st.success(f"선택한 날짜 ({current_date.date()})는 2024학년도의 {current_week_number}입니다.")
 else:
     st.error("해당 날짜에 대한 주차 정보를 찾을 수 없습니다.")
     current_week_number = None
@@ -214,7 +214,7 @@ def show_signal_and_image(signal_class, message, image_file):
     # 신호등과 이미지 함께 표시
     st.markdown(f"""
     <div class='signal-container'>
-        <div style="margin-bottom: 5px; margin-top: -30px;">
+        <div style="margin-bottom: 5px; margin-top: -50px;">
             <img src="data:image/png;base64,{get_image_base64(image_file)}" alt="{message}" style="width: 430px;">
         </div>
         <div class='signal {signal_class}'>● {message}</div>
