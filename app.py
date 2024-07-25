@@ -27,7 +27,6 @@ source_data['종료 일자'] = pd.to_datetime(source_data['종료 일자'])
 st.markdown(
     """
     <style>
-
     .title-container {
         text-align: center;
         margin-top: 20px;
@@ -38,20 +37,22 @@ st.markdown(
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
     .title {
-        font-size: 48px;
-        font-weight: bold;
+        font-size: 42px;
+        font-weight: 600;
         margin: 0;
+        color: #2c3e50;
     }
     .subtitle {
-        font-size: 28px;
-        font-weight: bold;
-        margin-top: 10px;
+        font-size: 24px;
+        font-weight: 500;
+        margin-top: 5px;
+        color: #7f8c8d;
     }
     .description {
         text-align: center;
         font-size: 18px;
         margin-top: 10px;
-        color: #000000;
+        color: #7f8c8d;
     }
     .prediction {
         text-align: center;
@@ -62,50 +63,52 @@ st.markdown(
     .signal-container {
         display: flex;
         justify-content: center;
+        align-items: center;
         margin-top: 20px;
     }
     .signal {
         text-align: center;
         font-size: 32px;
         font-weight: bold;
-        padding: 20px;
-        border-radius: 12px;
+        padding: 15px;
+        border-radius: 10px;
         display: inline-block;
         width: 200px;
+        margin: 0 10px;
     }
     .signal-green {
-        color: green;
+        color: #2ecc71;
         background-color: #e8f5e9;
     }
     .signal-orange {
-        color: orange;
+        color: #f39c12;
         background-color: #fffde7;
     }
     .signal-red {
-        color: red;
+        color: #e74c3c;
         background-color: #ffebee;
     }
     .quote {
         text-align: center;
-        font-size: 24px;
+        font-size: 22px;
         margin-top: 20px;
         font-weight: bold;
-        padding: 20px;
-        border-radius: 12px;
-        color: #000;
-        background-color: #f5f5f5;
-        border: 2px solid #ccc;
+        padding: 15px;
+        border-radius: 10px;
+        color: #333;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
     }
     .quote::before {
         content: '“';
-        font-size: 36px;
-        color: #ccc;
+        font-size: 30px;
+        color: #aaa;
         vertical-align: middle;
     }
     .quote::after {
         content: '”';
-        font-size: 36px;
-        color: #ccc;
+        font-size: 30px;
+        color: #aaa;
         vertical-align: middle;
     }
     </style>
@@ -188,16 +191,19 @@ if current_week_number:
         probability = min(max(predicted_value_2024, 0), 1)
         probability_percentage = probability * 100  # 확률을 백분율로 변환
 
-        # 신호등 색상 결정
+        # 신호등 색상 및 이미지 결정
         if probability < 0.3:
             signal_class = 'signal-green'
             message = '안전'
+            image_path = 'green.png'
         elif probability < 0.7:
             signal_class = 'signal-orange'
             message = '주의'
+            image_path = 'yellow.png'
         else:
             signal_class = 'signal-red'
             message = '위험'
+            image_path = 'red.png'
 
         # 시각화
         fig, ax = plt.subplots(figsize=(12, 6))
@@ -224,12 +230,18 @@ if current_week_number:
         
         # 2024학년도 예측 결과 및 신호등 색상 표시
         st.markdown(f"<div class='prediction'>2024학년도 {current_week_number}의 예측 학교 안전 사고 발생 확률은 {probability_percentage:.2f}%입니다.</div>", unsafe_allow_html=True)
-        st.markdown(f"<div class='signal-container'><div class='signal {signal_class}'>● {message}</div></div>", unsafe_allow_html=True)
+        
+        # 신호등과 이미지 표시
+        st.markdown(f"""
+        <div class='signal-container'>
+            <div class='signal {signal_class}'>● {message}</div>
+            <img src="data:image/png;base64,{st.image(image_path, use_column_width=True, output_format='png')}" alt="{message}" style="width: 60px; height: 60px; margin-left: 20px;">
+        </div>
+        """, unsafe_allow_html=True)
 
         # 랜덤 명언 표시
         quote = get_random_quote(signal_class)
         st.markdown(f"<div class='quote'>{quote}</div>", unsafe_allow_html=True)
-
 
     else:
         st.error("해당 주차에 대한 데이터가 없습니다.")
