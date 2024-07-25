@@ -284,7 +284,7 @@ if current_week_number:
         ax.set_ylabel('사고 건수', fontsize=14, fontproperties=fontprop)
         
         # 2024학년도 예측 결과 및 신호등 색상 표시
-        st.markdown(f"<div class='prediction'>2024학년도 {current_week_number}의 예측 학교 안전 사고 발생 확률은 {probability_percentage:.2f}%입니다.</div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='prediction'>2024학년도 {current_week_number}의 안전 사고가 발생할 것으로 예측된 확률은 {probability_percentage:.2f}%입니다.</div>", unsafe_allow_html=True)
         
         # 신호등과 이미지 표시
         show_signal_and_image(signal_class, message, image_file)
