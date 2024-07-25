@@ -209,8 +209,11 @@ if current_week_number:
 
         ax.set_xlabel('학년도', fontsize=14, fontproperties=fontprop)
         ax.set_ylabel('사고 건수', fontsize=14, fontproperties=fontprop)
-        ax.set_title(f'{current_week_number} 각 학년도 사고 건수', fontsize=10, fontproperties=fontprop)
         st.pyplot(fig)
+
+
+         # 서브타이틀 추가
+        st.markdown(f"<div class='subtitle'>{current_week_number} 각 학년도 사고 건수</div>", unsafe_allow_html=True)
 
         # 2024학년도 예측 결과 및 신호등 색상 표시
         st.markdown(f"<div class='prediction'>2024학년도 {current_week_number}의 예측 학교 안전 사고 발생 확률은 {probability_percentage:.2f}%입니다.</div>", unsafe_allow_html=True)
