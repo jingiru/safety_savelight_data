@@ -8,7 +8,7 @@ from datetime import datetime
 import random
 
 # NanumGothic 폰트 파일 경로 설정
-font_path = 'NanumGothic.ttf'
+font_path = 'NanumGothic.TTF'
 
 # 폰트 설정
 fontprop = fm.FontProperties(fname=font_path)
