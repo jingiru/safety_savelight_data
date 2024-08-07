@@ -10,6 +10,7 @@ from PIL import Image
 from io import BytesIO
 import base64
 import os
+import pytz
 
 # NanumGothic 폰트 파일 경로 설정
 font_path = os.path.join(os.getcwd(), 'NanumGothic.TTF')
@@ -25,6 +26,12 @@ info_data = pd.read_excel(file_path, sheet_name='raw_data')
 # 날짜 형식 변환
 source_data['시작 일자'] = pd.to_datetime(source_data['시작 일자'])
 source_data['종료 일자'] = pd.to_datetime(source_data['종료 일자'])
+
+
+# 한국 시간으로 현재 날짜를 가져오기
+tz = pytz.timezone('Asia/Seoul')
+current_time_kst = datetime.now(tz)
+
 
 # Streamlit 사용자 입력: 날짜 선택
 st.markdown(
@@ -154,7 +161,7 @@ min_date = datetime(2024, 3, 4)
 max_date = datetime(2025, 2, 28)
  
 st.subheader(":date:")
-date_input = st.date_input("날짜를 선택하세요. 2024학년도의 날짜(2024.03.04~2025.02.28.)만 선택 가능", datetime.now(), min_value=min_date, max_value=max_date)
+date_input = st.date_input("날짜를 선택하세요. 2024학년도의 날짜(2024.03.04~2025.02.28.)만 선택 가능", current_time_kst, min_value=min_date, max_value=max_date)
 
 # 선택된 날짜와 주차 정보 확인
 current_date = pd.to_datetime(date_input)
