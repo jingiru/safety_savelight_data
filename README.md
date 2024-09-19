@@ -1,6 +1,7 @@
 # safety_savelight_data
 
-서비스 링크 - [https://savelight.streamlit.app](https://savelight.streamlit.app/)
+서비스 링크 - [https://savelight.streamlit.app](https://savelight.streamlit.app/)  
+(만약 자고 있다면 - sleep - 깨워주세요!)
 
 # 
 
