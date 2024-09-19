@@ -267,15 +267,15 @@ if current_week_number:
         if probability < 0.3:
             signal_class = 'signal-green'
             message = '안전'
-            image_file = 'green.png'
+            image_file = './light_image/green.png'
         elif probability < 0.7:
             signal_class = 'signal-orange'
             message = '주의'
-            image_file = 'yellow.png'
+            image_file = './light_image/yellow.png'
         else:
             signal_class = 'signal-red'
             message = '위험'
-            image_file = 'red.png'
+            image_file = './light_image/red.png'
 
         # 시각화
         fig, ax = plt.subplots(figsize=(12, 6))
