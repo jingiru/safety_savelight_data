@@ -148,7 +148,7 @@ st.markdown(
     </style>
     <div class="title-container">
         <div class="title">🚨 학교 안전 수호등 🚨</div>
-        <div class="subtitle">2024학년도 학교 안전 사고 예측 서비스</div>
+        <div class="subtitle">2025학년도 학교 안전 사고 예측 서비스</div>
     </div>
     <hr>
     <div class="description">기본적으로 오늘 날짜입니다.<br>필요한 경우, 원하는 날짜를 선택하세요.</div>
