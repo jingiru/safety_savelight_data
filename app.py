@@ -171,20 +171,6 @@ date_input = st.date_input(
     max_value=max_date
 )
 
-# 선택된 날짜와 주차 정보 확인
-current_date = pd.to_datetime(date_input)
-
-# 선택한 날짜에 해당하는 주차 찾기
-'''
-week_info = source_data[(source_data['시작 일자'] <= current_date) & (source_data['종료 일자'] >= current_date)]
-if not week_info.empty:
-    current_week_number = week_info.iloc[0]['주차']
-    st.success(f"선택한 날짜 ({current_date.date()})는 {academic_year}학년도 {current_week_number}입니다.")
-else:
-    st.error("해당 날짜에 대한 주차 정보를 찾을 수 없습니다.")
-    current_week_number = None
-'''
-
 # 주차 계산 함수
 def get_week_number(target_date, start_date):
     """
@@ -196,6 +182,22 @@ def get_week_number(target_date, start_date):
     # 주차 계산 (해당 날짜가 학년도 시작일부터 몇 주째인지)
     week_number = ((target_date - start_date).days // 7) + 1
     return week_number
+
+    
+# 선택된 날짜와 주차 정보 확인
+current_date = pd.to_datetime(date_input)
+
+# 선택한 날짜에 해당하는 주차 찾기
+"""
+week_info = source_data[(source_data['시작 일자'] <= current_date) & (source_data['종료 일자'] >= current_date)]
+if not week_info.empty:
+    current_week_number = week_info.iloc[0]['주차']
+    st.success(f"선택한 날짜 ({current_date.date()})는 {academic_year}학년도 {current_week_number}입니다.")
+else:
+    st.error("해당 날짜에 대한 주차 정보를 찾을 수 없습니다.")
+    current_week_number = None
+"""
+
 
 
 # 주차 정보 자동 계산
