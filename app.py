@@ -31,7 +31,7 @@ source_data['종료 일자'] = pd.to_datetime(source_data['종료 일자'])
 # 한국 시간으로 현재 날짜를 가져오기
 tz = pytz.timezone('Asia/Seoul')
 current_time_kst = datetime.now(tz)
-
+current_year = current_time_kst.year
 
 # Streamlit 사용자 입력: 날짜 선택
 st.markdown(
@@ -156,20 +156,29 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# 날짜 범위 설정
-min_date = datetime(2024, 3, 4)
-max_date = datetime(2025, 2, 28)
+# 학년도 계산 (3월 이전이면 작년 학년도 적용)
+academic_year = current_year if current_time_kst.month >= 3 else current_year - 1
+
+# 날짜 범위 자동 설정
+min_date = datetime(academic_year, 3, 4)
+max_date = datetime(academic_year + 1, 2, 28)
  
 st.subheader(":date:")
-date_input = st.date_input("날짜를 선택하세요. 2024학년도의 날짜(2024.03.04~2025.02.28.)만 선택 가능", current_time_kst, min_value=min_date, max_value=max_date)
+date_input = st.date_input(
+    f"날짜를 선택하세요. {academic_year}학년도의 날짜({min_date.date()}~{max_date.date()})만 선택 가능",
+    current_time_kst,
+    min_value=min_date,
+    max_value=max_date
+)
 
 # 선택된 날짜와 주차 정보 확인
 current_date = pd.to_datetime(date_input)
 
+# 선택한 날짜에 해당하는 주차 찾기
 week_info = source_data[(source_data['시작 일자'] <= current_date) & (source_data['종료 일자'] >= current_date)]
 if not week_info.empty:
     current_week_number = week_info.iloc[0]['주차']
-    st.success(f"선택한 날짜 ({current_date.date()})는 2024학년도의 {current_week_number}입니다.")
+    st.success(f"선택한 날짜 ({current_date.date()})는 {academic_year}학년도 {current_week_number}입니다.")
 else:
     st.error("해당 날짜에 대한 주차 정보를 찾을 수 없습니다.")
     current_week_number = None
@@ -256,11 +265,11 @@ if current_week_number:
         coef = model.coef_[0]
         intercept = model.intercept_
 
-        # 2024학년도 예측
-        predicted_value_2024 = model.predict(np.array([[2024]]))[0]
+        # 올해 년도 설정
+        predicted_value = model.predict(np.array([[academic_year]]))[0]
 
         # 예측값을 확률로 변환 (0에서 1 사이의 값으로 가정)
-        probability = min(max(predicted_value_2024, 0), 1)
+        probability = min(max(predicted_value, 0), 1)
         probability_percentage = probability * 100  # 확률을 백분율로 변환
 
         # 신호등 색상 및 이미지 결정
@@ -295,8 +304,8 @@ if current_week_number:
         ax.set_xlabel('학년도', fontsize=14, fontproperties=fontprop)
         ax.set_ylabel('사고 건수', fontsize=14, fontproperties=fontprop)
         
-        # 2024학년도 예측 결과 및 신호등 색상 표시
-        st.markdown(f"<div class='prediction'>2024학년도 {current_week_number}에 안전 사고가 발생할 확률은 {probability_percentage:.2f}%입니다.</div>", unsafe_allow_html=True)
+        # 예측 결과 표시
+        st.markdown(f"<div class='prediction'>{academic_year}학년도 {current_week_number}에 사고 발생 확률: {probability_percentage:.2f}%</div>", unsafe_allow_html=True)
         
         # 신호등과 이미지 표시
         show_signal_and_image(signal_class, message, image_file)
