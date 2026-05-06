@@ -33,9 +33,11 @@ tz = pytz.timezone('Asia/Seoul')
 current_time_kst = datetime.now(tz)
 current_year = current_time_kst.year
 
+# 학년도 계산 (3월 이전이면 작년 학년도 적용)
+academic_year = current_year if current_time_kst.month >= 3 else current_year - 1
+
 # Streamlit 사용자 입력: 날짜 선택
-st.markdown(
-    """
+title_html = """
     <style>
     .title-container {
         text-align: center;
@@ -148,16 +150,12 @@ st.markdown(
     </style>
     <div class="title-container">
         <div class="title">🚨 학교 안전 수호등 🚨</div>
-        <div class="subtitle">2025학년도 학교 안전 사고 예측 서비스</div>
+        <div class="subtitle">__ACADEMIC_YEAR__학년도 학교 안전 사고 예측 서비스</div>
     </div>
     <hr>
     <div class="description">기본적으로 오늘 날짜입니다.<br>필요한 경우, 원하는 날짜를 선택하세요.</div>
-    """,
-    unsafe_allow_html=True
-)
-
-# 학년도 계산 (3월 이전이면 작년 학년도 적용)
-academic_year = current_year if current_time_kst.month >= 3 else current_year - 1
+    """
+st.markdown(title_html.replace("__ACADEMIC_YEAR__", str(academic_year)), unsafe_allow_html=True)
 
 # 날짜 범위 자동 설정
 min_date = datetime(academic_year, 3, 4)
@@ -200,7 +198,7 @@ else:
 
 
 
-# info.xlsx에서 데이터 준비
+# info.xlsx에서 데이터 준비 (고정된 5개년도 학습 데이터)
 years = ['2019학년도', '2020학년도', '2021학년도', '2022학년도', '2023학년도']
 norm_years = ['2019정규', '2020정규', '2021정규', '2022정규', '2023정규']
 
